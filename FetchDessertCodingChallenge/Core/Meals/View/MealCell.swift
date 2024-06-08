@@ -7,22 +7,14 @@
 
 import SwiftUI
 
+// Displays the meal image and name. Used for
+// showing the meals in a list.
 struct MealCell: View {
     let meal: Meal
-    let imageDimension: CGFloat = 60
     
     var body: some View {
         LazyHStack(spacing: 16) {
-            AsyncImage(url: URL(string: meal.imageUri)) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: imageDimension, height: imageDimension)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            } placeholder: {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: imageDimension, height: imageDimension)
-            }
+            SquareImageView(imageDimension: 60, urlString: meal.imageUri)
             Text(meal.name)
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.leading)
@@ -32,5 +24,5 @@ struct MealCell: View {
 }
 
 #Preview {
-    MealCell(dessert: Meal.sample)
+    MealCell(meal: Meal.sample)
 }

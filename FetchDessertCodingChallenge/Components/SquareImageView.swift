@@ -7,14 +7,26 @@
 
 import SwiftUI
 
+// An image component with a height and width of
+// 'imageDimension' displaying the source image from 'urlString'.
 struct SquareImageView: View {
-    let imageDimension: Int
+    let imageDimension: CGFloat
+    let urlString: String
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        AsyncImage(url: URL(string: urlString)) { image in
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: imageDimension, height: imageDimension)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+        } placeholder: {
+            RoundedRectangle(cornerRadius: 10)
+                .frame(width: imageDimension, height: imageDimension)
+        }
     }
 }
 
 #Preview {
-    SquareImageView(imageDimension: 40)
+    SquareImageView(imageDimension: 200, urlString: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg")
 }
